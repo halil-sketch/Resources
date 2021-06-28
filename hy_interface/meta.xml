@@ -1,0 +1,7 @@
+<meta>
+	<info author="HalilY" />
+	<script src="client.lua" type="client" />
+	<file src="hud.png" cache="false"/>
+	
+
+</meta>
