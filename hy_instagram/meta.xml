@@ -1,0 +1,6 @@
+<meta>
+    <script src="client.lua" type="client" cache="false" />
+    <script src="server.lua"/>
+    <file src="halil/background.png"/>
+    <file src="halil/instagram.png"/>
+</meta>
