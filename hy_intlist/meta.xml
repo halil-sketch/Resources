@@ -1,0 +1,7 @@
+<meta>
+	<info author="Halil" type="script" description="İnterior İd"/>
+	
+	<script src="intid.lua" type="client" cache="false" />
+	<script src="jailtimes.lua" type="client" cache="false" />
+	
+</meta>
