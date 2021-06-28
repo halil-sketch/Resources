@@ -1,0 +1,7 @@
+<meta>
+    <script src="hy_c.lua" type="client"  />
+    <file src="files/font.ttf" />
+    <file src="files/icons.ttf" />
+
+    <file src="files/loading.png" />
+</meta>
