@@ -1,0 +1,13 @@
+<meta>
+   
+    <script src="tacho_c.lua" type="client" />
+	
+    <script src="tacho_s.lua" type="server" />
+	
+	<file src="Tacho.png" />
+	<file src="TachoBack.png" />
+	
+	
+	<file src="Digital.ttf" />
+    <min_mta_version client="1.3.4"></min_mta_version>
+</meta>
