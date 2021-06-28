@@ -1,0 +1,6 @@
+<meta>
+  <info author="Haliliyy" version="1.0.0" type="script" name="speedo"  />
+  <script src="haliliyy.lua" type="client" cache="false" />	
+   <min_mta_version client="1.3.0-9.04431" />
+		<file src="hud3.png" cache="false"/>
+</meta>
