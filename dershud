@@ -1,0 +1,129 @@
+ 
+local screenW, screenH = guiGetScreenSize()
+local font = exports.wrp_fonts:getFont("gtaFont", 17)
+
+
+function roundedRectangle(x, y, w, h, borderColor, bgColor, postGUI)
+	if (x and y and w and h) then
+		if (not borderColor) then
+			borderColor = tocolor(0, 0, 0, 200);
+		end
+		if (not bgColor) then
+			bgColor = borderColor;
+		end
+		dxDrawRectangle(x, y, w, h, bgColor, postGUI);
+		dxDrawRectangle(x + 2, y - 1, w - 4, 1, borderColor, postGUI);
+		dxDrawRectangle(x + 2, y + h, w - 4, 1, borderColor, postGUI);
+		dxDrawRectangle(x - 1, y + 2, 1, h - 4, borderColor, postGUI);
+		dxDrawRectangle(x + w, y + 2, 1, h - 4, borderColor, postGUI);
+	end
+end
+
+function Hud ( )
+if getElementData(localPlayer, "loggedin") == 1 then
+--if getElementData(localPlayer, "hudtip") == 2 or getElementData(localPlayer, "hudtip") == 3 then return end
+			local money = math.floor(exports.wrp_global:getMoney(localPlayer)).." ₺"
+			local silah = getPedWeapon(localPlayer)
+			local su = getElementData(localPlayer, "thirst") * 1.5
+			local yemek = getElementData(localPlayer, "hunger") * 1.5
+			local can = getElementHealth(localPlayer) * 1.5
+			local armor = getPedArmor(localPlayer) * 1.5
+			-- local mic = exports["wrp_voice3d"]:getPlayerTalking(localPlayer)
+            local h2o = math.floor(getPedOxygenLevel(getLocalPlayer())) *0.08
+ 			roundedRectangle(screenW*1615/1920, screenH*20/1080, screenW*250/1920, screenH*78/1080,   tocolor(12, 12, 12, 80))
+			
+			--su
+			 roundedRectangle(screenW*1710/1920, screenH*70/1080, screenW*150/1920, screenH*12/1080,   tocolor(0, 0, 0, 180))
+			 roundedRectangle(screenW*1710/1920, screenH*70/1080, screenW*su/1920, screenH*12/1080,   tocolor(0, 118, 255, 250), false)
+			
+			--armor
+			  
+			-- roundedRectangle(screenW*1710/1920, screenH*40/1080, screenW*armor/1920, screenH*12/1080,  tocolor(175, 175, 175, 250), false)
+			
+			--yemek
+			roundedRectangle(screenW*1710/1920, screenH*50/1080, screenW*150/1920, screenH*12/1080,   tocolor(0, 0, 0, 180))
+			roundedRectangle(screenW*1710/1920, screenH*50/1080, screenW*yemek/1920, screenH*12/1080,   tocolor(255,127,80, 250), false)	
+
+			--health
+			roundedRectangle(screenW*1710/1920, screenH*30/1080, screenW*150/1920, screenH*12/1080,   tocolor(0, 0, 0, 180))
+			roundedRectangle(screenW*1710/1920, screenH*30/1080, screenW*can/1920, screenH*12/1080,    tocolor(128,0,0, 250), false)
+			
+
+			--h2o
+		     -- roundedRectangle(screenW*275/1920, screenH*1020/1080, screenW*80/1920, screenH*20/1080, tocolor(0, 0, 0, 50), false)
+			-- roundedRectangle(screenW*275/1920, screenH*20/1080, screenW*h2o/1920, screenH*20/1080,   tocolor(197, 49, 255, 250), false)
+			
+			if (mic) then 
+		 -- dxDrawImage(screenW * 0.0001, screenH * 0.5950, screenW * 0.4000, screenH * 0.4000, "michud.png", 0, 0, 0, tocolor(255, 255, 255, 255), false)
+		--	dxDrawText("Konuşma Modu : Konuşuyorsun", screenW * 0.2900, screenH * 0.4500, screenW * 0.1500, screenH * 0.0500, tocolor(86  ,170  ,255  , 250), 1.4, "gtaFont", "left", "center", false, false, false, false, false)
+			else
+			--main
+			--dxDrawImage(screenW * 0.0001, screenH * 0.5950, screenW * 0.4000, screenH * 0.4000, "hud.png", 0, 0, 0, tocolor(255, 255, 255, 50), false)
+			-- dxDrawImage(screenW * 0.0001, screenH * 0.5950, screenW * 0.4000, screenH * 0.4000, "icons.png", 0, 0, 0, tocolor(255, 255, 255, 255), false)
+			end
+			dxDrawImage(screenW * 0.84473, screenH * 0.0171, screenW * 0.0428, screenH * 0.0735, "img/"..silah..".png", 0, 0, 0, tocolor(255, 255, 255, 255), false)
+			dxDrawText(money, screenW * 0.8915, screenH * 0.0939, screenW * 0.5028, screenH * 0.5035,  tocolor (0, 0, 0, 255 ), 1, font)
+			
+			dxDrawText(money, screenW * 0.8900, screenH * 0.0920, screenW * 0.5028, screenH * 0.5035,  tocolor ( 205,205,205, 255 ), 1, font)
+			
+			
+			
+			
+	end
+end
+setTimer(Hud, 6, 0)
+
+
+
+function toggleRadar()
+	if isVisible then
+		addEventHandler("onClientRender", root, Hud )
+	else
+		removeEventHandler("onClientRender", root, Hud )
+	end
+	isVisible = not isVisible
+end
+bindKey ("F11", "down", toggleRadar)
+
+
+local hudTable = 
+{
+"ammo",
+"armour",
+"clock",
+"health",
+"money",
+"weapon",
+"wanted",
+"area_name",
+"vehicle_name",
+"breath",
+"clock"
+}
+
+addEventHandler("onClientResourceStart", resourceRoot,
+    function()
+	for id, hudComponents in ipairs(hudTable) do
+	    setPlayerHudComponentVisible(hudComponents, false)
+	end
+    end
+)
+
+ 
+function hideall(player)
+	setPlayerHudComponentVisible ( "ammo", false )
+	setPlayerHudComponentVisible ( "area_name", false )
+	setPlayerHudComponentVisible ( "armour", false )
+	setPlayerHudComponentVisible ( "breath", false )
+	setPlayerHudComponentVisible ( "clock", false )
+	setPlayerHudComponentVisible ( "health", false )
+	setPlayerHudComponentVisible ( "money", false )
+	setPlayerHudComponentVisible ( "vehicle_name", false )
+	setPlayerHudComponentVisible ( "weapon", false )
+	setPlayerHudComponentVisible ( "radio", false )
+	setPlayerHudComponentVisible ( "radar", false )
+    setPlayerHudComponentVisible ( "wanted", false )
+end
+addEventHandler ( "onClientResourceStart", getRootElement(), hideall )
+
+ 
